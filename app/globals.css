@@ -1,0 +1,1167 @@
+:root {
+  --cor-primaria: #1f6feb;
+  --cor-primaria-escura: #17539e;
+  --cor-primaria-suave: #e8f0fe;
+  --cor-fundo: #f4f6fa;
+  --cor-painel: #ffffff;
+  --cor-borda: #dfe3ea;
+  --cor-texto: #1b2430;
+  --cor-texto-suave: #64707f;
+  --cor-perigo: #c0392b;
+  --cor-perigo-suave: #fdecea;
+  --cor-positivo: #1e8e5a;
+  --cor-positivo-suave: #e7f6ee;
+  --cor-sidebar: #10192a;
+  --raio: 10px;
+  --raio-pequeno: 6px;
+  --sombra: 0 1px 2px rgba(16, 24, 40, 0.06), 0 6px 16px rgba(16, 24, 40, 0.06);
+  --largura-sidebar: 272px;
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  background: var(--cor-fundo);
+  color: var(--cor-texto);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+button, input, select { font: inherit; color: inherit; }
+
+/* ---------------- Shell ---------------- */
+.app { display: flex; min-height: 100vh; }
+.conteudo { flex: 1; min-width: 0; padding: 28px 32px 56px; }
+.conteudo--sem-padding { padding: 0; }
+
+/* ---------------- Sidebar (categorias) ---------------- */
+.sidebar {
+  /* Coluna flex: o bloco do técnico fica no rodapé real (margin-top: auto). */
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 var(--largura-sidebar);
+  width: var(--largura-sidebar);
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  overflow-y: auto;
+  padding: 20px 14px 18px;
+  background: var(--cor-sidebar);
+  color: #e7ecf5;
+}
+
+.marca { display: flex; align-items: center; gap: 10px; padding: 4px 8px 20px; }
+.marca__icone {
+  /* Silhueta do ET (Tarefa 53): substitui o quadradinho azul com a sigla DINF;
+     herda a cor do texto do menu e mantém os olhos vazados. */
+  display: block;
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  color: #e7ecf5;
+  opacity: 0.9;
+}
+.marca__nome { font-size: 0.86rem; color: #9fb0c7; min-width: 0; line-height: 1.25; }
+
+.menu__titulo {
+  margin: 12px 8px 8px;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7f90a8;
+}
+
+.categoria { margin-bottom: 10px; }
+
+.categoria__botao {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: var(--raio-pequeno);
+  background: transparent;
+  color: #e7ecf5;
+  cursor: pointer;
+  text-align: left;
+  text-decoration: none;
+}
+.categoria__botao:hover { background: rgba(255, 255, 255, 0.08); }
+.categoria__botao--ativa { background: rgba(31, 111, 235, 0.22); }
+.categoria__nome { flex: 1; font-weight: 600; }
+/* Selo de categoria reservada (ex.: GLPI, ainda sem conteúdo). */
+.categoria__aviso { padding: 1px 8px; border-radius: 999px; background: rgba(255, 255, 255, 0.12); color: #9fb0c7; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; }
+
+/* ---------------- Rodapé do menu: técnico logado (Tarefa 45/46) ---------------- */
+/* Bloco genérico (nome + função) com o botão que abre o modal de perfil.
+   `margin-top: auto` empurra o bloco para o rodapé do menu (coluna flex) — canto
+   inferior esquerdo, onde antes ficava o indicador de desenvolvimento do Next. */
+.menu__usuario {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: auto 4px 0;
+  padding: 14px 4px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+.menu__usuario-topo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.menu__usuario-dados {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+.menu__usuario-nome {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #e7ecf5;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.menu__usuario-funcao {
+  font-size: 0.75rem;
+  color: #9fb0c7;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.menu__usuario-botao {
+  flex-shrink: 0;
+  padding: 5px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--raio-pequeno);
+  background: transparent;
+  color: #e7ecf5;
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+.menu__usuario-botao:hover { background: rgba(255, 255, 255, 0.1); }
+/* ---------------- Avatar (usado nas listas) ---------------- */
+.avatar {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 34px; height: 34px;
+  border-radius: 999px;
+  background: var(--cor-primaria-suave);
+  color: var(--cor-primaria-escura);
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+/* ---------------- Cabeçalho da página ---------------- */
+.cabecalho { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end; justify-content: space-between; margin-bottom: 20px; }
+.cabecalho__titulo { margin: 0; font-size: 1.6rem; }
+.cabecalho__descricao { margin: 4px 0 0; color: var(--cor-texto-suave); }
+
+.barra-ferramentas { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 18px; }
+.barra-ferramentas .botao { margin-left: auto; }
+.campo-busca { flex: 1 1 260px; max-width: 420px; }
+/* Busca dos cards do dashboard: mais larga e mais alta que o padrão. */
+.campo-busca--dashboard { flex: 1 1 520px; max-width: 760px; }
+.campo-busca--dashboard .campo__rotulo { font-size: 0.9rem; }
+.campo-busca--dashboard .entrada {
+  padding: 13px 16px;
+  font-size: 1.05rem;
+}
+
+/* ---------------- Botões e campos ---------------- */
+.botao {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 16px;
+  border: 1px solid transparent;
+  border-radius: var(--raio-pequeno);
+  background: var(--cor-primaria);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+.botao:hover { background: var(--cor-primaria-escura); }
+.botao:disabled { opacity: 0.6; cursor: not-allowed; }
+.botao--neutro { background: #fff; border-color: var(--cor-borda); color: var(--cor-texto); font-weight: 500; }
+.botao--neutro:hover { background: #f4f6fa; }
+.botao--perigo { background: var(--cor-perigo-suave); border-color: #f3c4be; color: var(--cor-perigo); font-weight: 500; }
+.botao--perigo:hover { background: #fbdcd7; }
+.botao--positivo { background: var(--cor-positivo-suave); border-color: #b7e2cb; color: var(--cor-positivo); font-weight: 500; }
+.botao--positivo:hover { background: #d9f0e4; }
+.botao--pequeno { padding: 6px 12px; font-size: 0.86rem; }
+
+.campo { display: flex; flex-direction: column; gap: 5px; }
+.campo__rotulo { font-size: 0.85rem; font-weight: 600; }
+.entrada {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-pequeno);
+  background: #fff;
+}
+/* Select (campo Função): seta própria no lugar da nativa do Windows, que destoa dos
+   demais campos. O campo travado perde a seta de propósito — é o que a regra
+   `.entrada:disabled` (mais abaixo) já faz, ao usar o atalho `background`. */
+select.entrada {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  padding-right: 36px;
+  background-color: #fff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9.5 12 15.5 18 9.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 11px center;
+  background-size: 15px;
+  transition: border-color 0.12s;
+}
+select.entrada:hover:not(:disabled) { border-color: var(--cor-primaria); }
+select.entrada:disabled { cursor: not-allowed; }
+.entrada:focus { outline: 2px solid rgba(31, 111, 235, 0.35); border-color: var(--cor-primaria); }
+.entrada--erro { border-color: var(--cor-perigo); }
+.campo__erro { color: var(--cor-perigo); font-size: 0.8rem; }
+
+/* ---------------- Painéis de lista ---------------- */
+.painel {
+  background: var(--cor-painel);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+  margin-bottom: 22px;
+  overflow: hidden;
+}
+.painel--inativos { background: #fbfbfc; }
+.painel__cabecalho { padding: 16px 20px 12px; border-bottom: 1px solid var(--cor-borda); }
+.painel__titulo { display: flex; align-items: center; gap: 8px; margin: 0; font-size: 1.05rem; }
+.painel__descricao { margin: 4px 0 0; color: var(--cor-texto-suave); font-size: 0.87rem; }
+.selo { padding: 1px 9px; border-radius: 999px; background: var(--cor-primaria-suave); color: var(--cor-primaria-escura); font-size: 0.78rem; }
+.vazio { margin: 0; padding: 22px 20px; color: var(--cor-texto-suave); }
+
+/* ---------------- Tela inicial (nenhuma categoria selecionada) ---------------- */
+.boas-vindas { padding: 24px 22px; }
+.boas-vindas__titulo { margin: 0; font-size: 1.15rem; }
+.boas-vindas__texto { margin: 8px 0 18px; max-width: 62ch; color: var(--cor-texto-suave); }
+
+.lista { list-style: none; margin: 0; padding: 0; }
+.item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  border-top: 1px solid var(--cor-borda);
+}
+.item:first-child { border-top: 0; }
+.item--inativo { opacity: 0.85; }
+.item__dados { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.item__identidade { display: flex; flex-direction: column; min-width: 0; }
+.item__nome { font-size: 0.98rem; }
+.item__meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; color: var(--cor-texto-suave); font-size: 0.84rem; }
+.etiqueta { padding: 1px 8px; border-radius: 999px; background: #eef1f6; color: #43536b; font-size: 0.76rem; }
+.etiqueta--inativo { background: #f3e8e6; color: var(--cor-perigo); }
+.item__acoes { display: flex; gap: 8px; }
+
+.alerta {
+  margin: 0 0 16px;
+  padding: 11px 14px;
+  border: 1px solid #f3c4be;
+  border-radius: var(--raio-pequeno);
+  background: var(--cor-perigo-suave);
+  color: var(--cor-perigo);
+}
+
+/* ---------------- Modal / formulário ---------------- */
+.sobreposicao {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(16, 25, 42, 0.5);
+  z-index: 50;
+}
+.modal {
+  width: min(480px, 100%);
+  background: var(--cor-painel);
+  border-radius: var(--raio);
+  box-shadow: 0 20px 48px rgba(16, 24, 40, 0.28);
+  overflow: hidden;
+}
+.modal__cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--cor-borda);
+}
+.modal__titulo { margin: 0; font-size: 1.1rem; }
+.modal__fechar { border: 0; background: transparent; font-size: 1.3rem; line-height: 1; cursor: pointer; color: var(--cor-texto-suave); }
+.formulario { display: flex; flex-direction: column; gap: 14px; padding: 20px; }
+.modal__acoes { display: flex; justify-content: flex-end; gap: 10px; padding-top: 4px; }
+/* Aviso neutro dentro de modal (ex.: "Perfil do técnico" — Tarefa 45). */
+.perfil__nota { margin: 0; font-size: 0.8rem; color: var(--cor-texto-suave); }
+
+/* ---------------- Balão "Sugestões" (todas as telas) ---------------- */
+.sugestoes__balao {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 40;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--cor-primaria);
+  color: #fff;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(31, 111, 235, 0.35);
+}
+.sugestoes__balao:hover { background: var(--cor-primaria-escura); }
+.sugestoes__conteudo { gap: 12px; }
+.sugestoes__lista { display: flex; flex-direction: column; gap: 8px; max-height: 280px; overflow-y: auto; }
+.sugestoes__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-pequeno);
+  background: var(--cor-fundo);
+}
+.sugestoes__texto { flex: 1; min-width: 0; font-size: 0.9rem; white-space: pre-wrap; word-break: break-word; }
+.sugestoes__apagar {
+  border: 0;
+  background: transparent;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--cor-perigo);
+  opacity: 0.7;
+  padding: 2px;
+}
+.sugestoes__apagar:hover { opacity: 1; }
+.sugestoes__vazio { margin: 0; text-align: center; color: var(--cor-texto-suave); font-size: 0.88rem; }
+
+/* ---------------- Agenda (calendário do mês) ---------------- */
+.agenda {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 20px;
+  align-items: start;
+}
+.agenda .painel { margin-bottom: 0; }
+
+.agenda__navegacao { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; }
+.agenda__navegacao-titulo { display: flex; align-items: center; gap: 10px; }
+.agenda__navegacao-titulo .painel__titulo {
+  text-transform: capitalize;
+  /* Espaço fixo para o mês mais longo (ex.: "fevereiro de 2026"):
+     o botão › não muda de lugar ao trocar de mês. */
+  min-width: 10em;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.calendario { padding: 14px 16px 4px; }
+.calendario__semana { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; margin-bottom: 6px; }
+.calendario__rotulo { text-align: center; font-size: 0.74rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--cor-texto-suave); }
+.calendario__grade { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
+
+.calendario__dia {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  min-height: 66px;
+  padding: 6px 7px;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-pequeno);
+  background: #fff;
+  color: var(--cor-texto);
+  cursor: pointer;
+  text-align: left;
+}
+.calendario__dia:hover { border-color: var(--cor-primaria); }
+.calendario__dia--vazio { border-color: transparent; background: transparent; cursor: default; }
+.calendario__dia--vazio:hover { border-color: transparent; }
+.calendario__dia--passado { background: #f6f7f9; color: #9aa4b2; }
+/* Aniversário de técnico: amarelo bem fraco + 🎂 no dia */
+.calendario__dia--aniversario { background: #fffdf2; border-color: #f0e6c0; }
+.calendario__dia--aniversario.calendario__dia--passado { background: #fbf8ea; }
+.calendario__dia--hoje { box-shadow: inset 0 0 0 2px rgba(31, 111, 235, 0.45); }
+.calendario__dia--selecionado { border-color: var(--cor-primaria); box-shadow: inset 0 0 0 1px var(--cor-primaria); }
+
+.calendario__numero { font-size: 0.9rem; font-weight: 600; }
+.calendario__bolo { font-size: 0.82rem; line-height: 1; }
+.calendario__aniversariante {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.68rem;
+  color: #8a7726;
+}
+.calendario__marcador {
+  position: absolute;
+  top: 5px;
+  right: 6px;
+  min-width: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--cor-primaria);
+  color: #fff;
+  font-size: 0.68rem;
+  text-align: center;
+}
+
+.agenda__legenda { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; margin: 0; padding: 10px 20px 16px; color: var(--cor-texto-suave); font-size: 0.8rem; }
+.agenda__legenda-item { display: inline-flex; align-items: center; gap: 6px; }
+/* O "1" da legenda é um exemplo estático: fora da célula do calendário ele não pode
+   ficar absolute (não há ancestral posicionado → saltava para o canto da página). */
+.agenda__legenda .calendario__marcador { position: static; }
+
+.agenda__rodape { padding: 14px 20px; border-top: 1px solid var(--cor-borda); }
+.agenda__aviso { margin: 0; color: var(--cor-texto-suave); font-size: 0.85rem; }
+
+.item--evento { align-items: flex-start; }
+.evento__descricao { margin: 6px 0 0; color: var(--cor-texto-suave); font-size: 0.86rem; white-space: pre-wrap; }
+
+.campo__linha { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; }
+textarea.entrada { resize: vertical; }
+
+/* ---------------- GLPI (abas) ---------------- */
+.glpi {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* ---------------- Topo do painel do GLPI (Tarefa 106) ----------------
+   Título "Suporte" e ação de sincronização na MESMA linha. Ficou acima dos painéis,
+   então continua visível em qualquer aba. Substitui a antiga barra de abas
+   (`.glpi__abas`), que foi para o submenu do menu lateral. */
+.glpi__topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+/* O título é o `cabecalho__titulo` das outras telas; o topo só precisa zerar a
+   margem de baixo, que lá não existe porque o título está sozinho. */
+.glpi__topo .cabecalho__titulo { margin: 0; }
+
+/* ---------------- Submenu do GLPI no menu lateral (Tarefa 106) ----------------
+   Fica recuado e com um filete à esquerda, para se ler como continuação da
+   categoria GLPI e não como outra categoria do mesmo nível. */
+.categoria__submenu {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin: 2px 0 6px 14px;
+  padding-left: 8px;
+  border-left: 2px solid rgba(231, 236, 245, 0.14);
+}
+.categoria__subitem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: var(--raio-pequeno);
+  color: #b9c4d6;
+  font-size: 0.88rem;
+  text-decoration: none;
+  transition: background 0.12s, color 0.12s;
+}
+.categoria__subitem:hover { background: rgba(255, 255, 255, 0.06); color: #fff; }
+/* Aba aberta: fundo claro e texto branco — é o mesmo tratamento do item ativo da
+   categoria, só que recuado. */
+.categoria__subitem--ativo {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-weight: 600;
+}
+.categoria__subitem-icone { font-size: 0.9rem; line-height: 1; }
+
+.glpi__acao {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+/* Tarefa 110/111: o ÚNICO rótulo de status, à esquerda do botão "Sincronizar".
+   Em repouso mostra a data da última sincronização; durante a execução, a linha
+   de progresso (`Atualizando ... x de y`); e durante os 5 s de conclusão, o
+   resultado (`Concluído.` / `Sincronização interrompida às HH:MM` / o erro).
+   A linha é mais longa que a data, por isso a reticência e o teto de largura. */
+.glpi__acao-ultima {
+  font-size: 0.8rem;
+  color: var(--cor-texto-suave);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 340px;
+}
+/* Interrupção/erro: o texto fica vermelho, como era na versão junto do título. */
+.glpi__acao-ultima--erro { color: #c62828; }
+.glpi__acao-botao {
+  padding: 8px 16px;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-pequeno);
+  background: #fff;
+  color: var(--cor-texto);
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s;
+}
+.glpi__acao-botao:hover {
+  background: var(--cor-fundo);
+  border-color: var(--cor-primaria);
+  color: var(--cor-primaria-escura);
+}
+.glpi__acao-botao:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+.glpi__acao-botao__icon {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  margin-right: 7px;
+  flex-shrink: 0;
+  vertical-align: -1px;
+}
+.glpi__acao-botao__texto {
+  display: inline-block;
+}
+.glpi__painel {
+  background: var(--cor-painel);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+  padding: 20px 22px;
+  min-height: 220px;
+}
+.glpi__aba-conteudo { animation: fadeIn 0.15s ease; }
+.glpi__vazio { color: var(--cor-texto-suave); }
+.glpi__vazio p { margin: 0; font-size: 0.95rem; }
+
+/* ---------------- Perfil de exibição ----------------
+   Fica entre o card "Visão geral" e a barra de busca. A barra azul à esquerda
+   e o fundo levemente azulado existem para o bloco se ler como um controle de
+   contexto da tela, e não como mais uma função do dashboard (busca, busca geral).
+   O dropdown é próprio, não <select>: a seta nativa do Windows destoa. */
+.perfil {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 0 0 16px;
+  padding: 12px 18px 12px 16px;
+  background: var(--cor-painel);
+  border: 1px solid var(--cor-borda);
+  border-left: 4px solid var(--cor-primaria);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+}
+.perfil__rotulo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--cor-texto-suave);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.perfil__rotulo-icone { width: 16px; height: 16px; color: var(--cor-primaria); }
+.perfil__campo { position: relative; }
+.perfil__botao {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 230px;
+  padding: 9px 12px;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-pequeno);
+  background: #fff;
+  font: inherit;
+  color: var(--cor-texto);
+  cursor: pointer;
+  transition: border-color 0.12s, background 0.12s;
+}
+.perfil__botao:hover { border-color: var(--cor-primaria); background: var(--cor-primaria-suave); }
+.perfil__botao:focus-visible { outline: 2px solid rgba(31, 111, 235, 0.35); border-color: var(--cor-primaria); }
+.perfil__valor { font-weight: 600; }
+.perfil__seta { width: 15px; height: 15px; flex: none; color: #64748b; transition: transform 0.14s ease; }
+.perfil__seta--aberta { transform: rotate(180deg); }
+.perfil__lista {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 30;
+  min-width: 100%;
+  max-height: 280px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  background: var(--cor-painel);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  box-shadow: 0 8px 24px rgba(16, 24, 40, 0.14);
+}
+.perfil__opcao {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 11px;
+  border-radius: var(--raio-pequeno);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.perfil__opcao--foco { background: #f4f6fa; }
+.perfil__opcao--ativa { background: var(--cor-primaria-suave); color: var(--cor-primaria-escura); font-weight: 600; }
+.perfil__opcao--foco.perfil__opcao--ativa { background: var(--cor-primaria-suave); }
+.perfil__marca { width: 14px; height: 14px; flex: none; color: var(--cor-primaria); }
+
+/* ---------------- Dashboard (cards) ---------------- */
+/* T107: saiu a `.dashboard__titulo` — o título do painel passou a usar o
+   `cabecalho__titulo` das outras telas (Agenda, Técnicos, Início). */
+.dashboard__cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+/* Perfil de departamento (T101): só 3 cards, então a grade é de 3 colunas. */
+.dashboard__cards--tres { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.dashboard__card {
+  background: var(--cor-painel);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+  padding: 18px 18px 14px;
+}
+/* T108: cards da grade mais altos, para a lista de chamados ter onde caber.
+   A faixa "Chamados abertos" fica de fora de propósito — ela é uma linha só de
+   números e não deve herdar a altura mínima. */
+.dashboard__card:not(.dashboard__card--faixa) {
+  min-height: 400px;
+}
+.dashboard__card-titulo {
+  margin: 0 0 8px;
+  font-size: 0.85rem;
+  color: var(--cor-texto-suave);
+  font-weight: 500;
+}
+.dashboard__card-numero {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--cor-primaria-escura);
+  line-height: 1.1;
+}
+/* T104: linha do card com o total ao lado dos números pequenos. O `wrap` evita
+   que o texto aperte o número grande em card estreito — nesse caso ele desce para
+   a linha de baixo. */
+.dashboard__card-cabecalho {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  margin-bottom: 6px;
+}
+.dashboard__card-mini {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 0;
+}
+/* Etiquetas: retângulo arredondado em tom bem claro, para ler rápido sem
+   competir com o número grande. */
+.dashboard__mini {
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: #eef1f6;
+  color: var(--cor-texto-suave);
+  font-size: 0.68rem;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+/* Pendente: âmbar, o mesmo do status 4 da barrinha do item (T90). */
+.dashboard__mini--pendente {
+  background: #fdf1dc;
+  color: #8a5a00;
+}
+/* Aberto (Tarefa 111): verde do sistema. O verde e o cinza trocaram de lugar:
+   `solucionados hoje` e `abertos hoje` inverteram as cores. */
+.dashboard__mini--aberto {
+  background: var(--cor-positivo-suave);
+  color: var(--cor-positivo);
+}
+/* (Tarefa 43: o número isolado acima da linha foi removido; o total agora é o
+   primeiro quadrado da linha, com o mesmo comportamento dos departamentos.) */
+/* Quadrado do departamento (Tarefa 41): o botão ocupa TODO o quadrado. */
+.dashboard__abertos-item { padding: 0; }
+.dashboard__abertos-botao {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  width: 100%;
+  padding: 4px 12px;
+  border: 0;
+  border-radius: var(--raio-pequeno);
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+/* Hover pinta todo o quadrado de azul claro — sem sublinhado no número. */
+.dashboard__abertos-botao:hover { background: var(--cor-primaria-suave); }
+.dashboard__abertos-botao:focus-visible {
+  outline: 2px solid rgba(31, 111, 235, 0.5);
+  outline-offset: -2px;
+}
+/* Quadrado do TOTAL (Tarefa 43; Tarefa 44 removeu o fundo fixo): mesmo fundo dos
+   departamentos, ganhando azul só no hover; o destaque fica na tipografia. */
+.dashboard__abertos-item--total { border-radius: var(--raio-pequeno); }
+.dashboard__abertos-botao--total .dashboard__abertos-departamento {
+  color: var(--cor-primaria-escura);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.dashboard__abertos-botao--total .dashboard__abertos-total {
+  font-size: 1.7rem;
+  color: var(--cor-primaria-escura);
+}
+/* Mesmo azul do hover dos departamentos (herdado de .dashboard__abertos-botao:hover). */
+/* Modal largo do total de abertos (Tarefa 40): busca no topo + lista rolável. */
+/* Subtítulo do modal da busca geral, logo abaixo do título (Tarefa 84). */
+.modal__subtitulo { margin: 10px 20px 0; color: var(--cor-texto-suave); font-size: 0.9rem; }
+.modal--largo { width: min(680px, 100%); }
+.modal__busca { padding: 16px 20px 0; }
+.campo-busca--modal { max-width: none; }
+.modal__corpo { padding: 8px 20px 20px; }
+.modal__corpo .dashboard__lista { max-height: 50vh; }
+.dashboard__abertos-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.dashboard__abertos-lista--linha {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px 0;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--cor-borda);
+}
+/* T106: o quadrado da faixa encolheu (padding 12px -> 8px). Com 8 colunas numa
+   largura cheia, cada uma ficava com ar demais e o card inteiro ficava alto
+   demais para o que mostra — que é só uma linha de números. */
+.dashboard__abertos-lista--linha .dashboard__abertos-item {
+  flex: 1 1 0;
+  min-width: 104px;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2px;
+  padding: 8px 10px 6px;
+  border-bottom: none;
+  border-right: 1px solid var(--cor-borda);
+}
+.dashboard__abertos-lista--linha .dashboard__abertos-item:last-child {
+  border-right: none;
+}
+.dashboard__abertos-lista--linha .dashboard__abertos-departamento {
+  font-size: 0.8rem;
+  color: var(--cor-texto-suave);
+  font-weight: 500;
+}
+/* T106: número um pouco maior — é a informação principal do card e ficava
+   pequeno demais em relação ao espaço que ocupava. */
+.dashboard__abertos-lista--linha .dashboard__abertos-total {
+  margin-left: 0;
+  font-size: 1.55rem;
+  line-height: 1.15;
+}
+.dashboard__lista-vazio {
+  margin: 8px 0 0;
+  font-size: 0.85rem;
+  color: var(--cor-texto-suave);
+}
+.dashboard__faixa {
+  margin-bottom: 14px;
+}
+.dashboard__card--faixa {
+  width: 100%;
+  /* T106: padding menor que o dos outros cards — esta faixa é baixa e só tem uma
+     linha de números, e o mesmo respiro dos cards grandes deixava um vão. */
+  padding: 14px 16px 10px;
+}
+.dashboard__abertos-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--cor-borda);
+}
+.dashboard__abertos-item:last-child { border-bottom: none; }
+.dashboard__abertos-departamento {
+  font-size: 0.9rem;
+  color: var(--cor-texto);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+.dashboard__abertos-total {
+  margin-left: 12px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--cor-primaria-escura);
+  flex-shrink: 0;
+}
+.dashboard__lista {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 10px 0 0;
+  border-top: 1px solid var(--cor-borda);
+  display: grid;
+  gap: 0;
+  /* T108: acompanha a altura maior do card (min-height 400px). Sem isto o card
+     ganhava só espaço vazio embaixo, porque a lista parava em 260px. */
+  max-height: 330px;
+  overflow-y: auto;
+}
+.dashboard__lista-item {
+  border-radius: var(--raio-pequeno);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  /* Tarefa 93: ancora do quadradinho de "avisar de novo" no canto inferior
+     direito do item. */
+  position: relative;
+}
+/* Tarefa 93: com o quadradinho de reaviso no canto inferior direito, a linha de
+   detalhe (solicitante/localização) ganha folga à direita para o texto não
+   passar por baixo do quadrado. */
+.dashboard__lista-item--reaviso .dashboard__lista-item-link {
+  padding-right: 22px;
+}
+/* ---------------- Quadradinho de reaviso (Tarefa 93) ----------------
+   Botão pequeno e discreto no canto inferior direito do item, só em chamado
+   aberto que ainda não está amarelo. Clicar devolve o último acompanhamento
+   para `visto = 0` e o item fica amarelo outra vez. Fica fora do `<a>` do
+   item, então o clique não abre o GLPI. */
+.dashboard__lista-aviso {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: 1px solid rgba(0, 0, 0, 0.22);
+  border-radius: 2px;
+  background: #fff;
+  cursor: pointer;
+}
+.dashboard__lista-aviso:hover {
+  background: #ffe9a8;
+  border-color: rgba(0, 0, 0, 0.35);
+}
+.dashboard__lista-item:last-child {
+  border-bottom: none;
+}
+.dashboard__lista-item:nth-child(odd) {
+  background: var(--cor-fundo);
+}
+.dashboard__lista-item:hover {
+  background: var(--cor-primaria-suave);
+}
+/* Acompanhamento novo (Tarefa 36): amarelo claro, acima do zebrado/hover. */
+.dashboard__lista-item--novo {
+  background: #fff8dc;
+  border-left: 3px solid #e6c200;
+}
+.dashboard__lista-item--novo:nth-child(odd) {
+  background: #fff8dc;
+}
+.dashboard__lista-item--novo:hover {
+  background: #fff3bf;
+}
+/* Todo o item (não só o número) abre o chamado no GLPI. */
+.dashboard__lista-item-link {
+  display: grid;
+  gap: 1px;
+  padding: 7px 8px;
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ---------------- Barrinha do status (Tarefa 90) ----------------
+   Lateral esquerda de cada chamado, com a cor do status no padrão do GLPI
+   (imagem de referência). Vale para todas as listas: cards do dashboard,
+   modal de abertos e busca geral, porque todas usam `ListaChamados`.
+
+   Esta regra tem especificidade maior que `.dashboard__lista-item--novo`
+   (T36, a barra âmbar do "acompanhamento novo"): o seletor de atributo conta
+   como classe, então a barra do status vence e as duas não se misturam. O
+   aviso de "novo" continua no fundo amarelo, que permanece intacto. */
+.dashboard__lista-item[class*='--status'] {
+  border-left: 4px solid var(--status-cor);
+  /* O item tem border-radius; sem isto a barra vira uma quina reta no topo. */
+  border-top-left-radius: var(--raio-pequeno);
+  border-bottom-left-radius: var(--raio-pequeno);
+}
+.dashboard__lista-item--status1 { --status-cor: #3fae3f; } /* Novo            — verde sólido */
+.dashboard__lista-item--status2 { --status-cor: #3fae3f; } /* Em atendimento  — contorno verde */
+.dashboard__lista-item--status3 { --status-cor: #3fae3f; } /* Em atend. (plan.) — igual ao 2 */
+.dashboard__lista-item--status4 { --status-cor: #f0a202; } /* Pendente        — laranja */
+.dashboard__lista-item--status5 { --status-cor: #9ca3af; } /* Solucionado     — cinza */
+.dashboard__lista-item--status6 { --status-cor: #111827; } /* Fechado         — preto */
+
+.dashboard__lista-topo {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  min-width: 0;
+  font-size: 0.83rem;
+}
+/* Solicitante e localização em linhas separadas. */
+.dashboard__lista-detalhe {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+  font-size: 0.78rem;
+}
+.dashboard__lista-link {
+  flex: 0 0 auto;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--cor-primaria-escura);
+  white-space: nowrap;
+}
+.dashboard__lista-item:hover .dashboard__lista-link {
+  text-decoration: underline;
+}
+.dashboard__lista-titulo {
+  min-width: 0;
+  flex: 1 1 auto;
+  font-weight: 600;
+  color: var(--cor-texto);
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.dashboard__lista-detalhe > span {
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dashboard__lista-solicitante {
+  color: var(--cor-texto);
+}
+.dashboard__lista-solicitante::before {
+  content: '👤 ';
+  font-size: 0.72rem;
+}
+.dashboard__lista-local {
+  color: var(--cor-texto-suave);
+}
+.dashboard__lista-local::before {
+  content: '📍 ';
+  font-size: 0.72rem;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+
+@media (max-width: 900px) {
+  .app { flex-direction: column; }
+  .sidebar { position: static; width: 100%; flex-basis: auto; height: auto; }
+  .conteudo { padding: 20px; }
+  .agenda { grid-template-columns: minmax(0, 1fr); }
+  .campo__linha { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---------------- Login: bloqueio do sistema (Tarefa 54) ----------------
+   A sobreposição do login é irmã de `.app` (sem portal), então é pintada acima de
+   tudo com `z-index` 100 — os demais modais usam 50. O `backdrop-filter` borra a
+   aplicação que já está renderizada atrás; `-webkit-` cobre o Safari. */
+.sobreposicao--login {
+  z-index: 100;
+  background: rgba(16, 25, 42, 0.72);
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
+}
+.login__aviso { margin: 0; font-size: 0.82rem; color: var(--cor-perigo); }
+
+/* ---------------- Login: selo do ET + campos com ícone (Tarefa 55) ----------------
+   Visual no padrão da referência: selo circular escuro sobre a borda superior do
+   cartão e campos brancos com segmento de ícone à esquerda (somente placeholders,
+   sem rótulos visíveis e sem opções lembrar/esqueci). Mantidos o cartão branco, o
+   título, o botão azul e a credencial `admin`/`admin`. */
+.modal--login { position: relative; overflow: visible; margin-top: 44px; width: min(420px, 100%); }
+.login__selo {
+  position: absolute;
+  top: -44px;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: #10192a;
+  color: #eef1f6;
+}
+.login__selo svg { display: block; width: 42px; height: 42px; }
+.login__campo {
+  display: flex;
+  align-items: stretch;
+  min-width: 0;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-pequeno);
+  background: #fff;
+  overflow: hidden;
+  cursor: text;
+}
+.login__campo:focus-within { outline: 2px solid rgba(31, 111, 235, 0.35); border-color: var(--cor-primaria); }
+.login__campo--erro { border-color: var(--cor-perigo); }
+.login__campo-icone {
+  display: grid;
+  place-items: center;
+  flex: 0 0 46px;
+  background: #eef1f6;
+  color: #43536b;
+}
+.login__campo-icone svg { display: block; width: 20px; height: 20px; }
+.login__campo-texto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.login__campo-entrada {
+  width: 100%;
+  min-width: 0;
+  padding: 11px 12px;
+  border: 0;
+  background: transparent;
+  color: var(--cor-texto);
+}
+.login__campo-entrada::placeholder { color: #9aa5b4; }
+.login__campo-entrada:focus { outline: none; }
+.modal__titulo--centro { flex: 1; text-align: center; }
+.modal--login .modal__cabecalho { padding-top: 38px; }
+.menu__usuario-acoes {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.menu__usuario-acoes .menu__usuario-botao {
+  flex: 1;
+  text-align: center;
+}
+.menu__usuario-botao--sair { color: #f87171; border-color: rgba(248, 113, 113, 0.25); }
+.menu__usuario-botao--sair:hover { background: rgba(248, 113, 113, 0.12); }
+
+/* ---------------- Perfil do técnico (Tarefa 61) ---------------- */
+/* Link "Redefinir senha": texto puro e clicável, sem caixa de botão. */
+.perfil__link {
+  align-self: flex-start;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--cor-primaria);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.perfil__link:hover { color: var(--cor-primaria-escura); }
+
+/* ---------------- Indicativo do grupo do chamado (Tarefa 69) ---------------- */
+/* Fica no canto superior direito do item: a linha de cima é flex e o bloco de
+   grupos é empurrado para a direita com `margin-left: auto`. */
+.dashboard__lista-grupos {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-left: auto;
+  padding-left: 8px;
+}
+.dashboard__grupo {
+  display: inline-flex;
+  align-items: center;
+  /* O `gap` acompanha o tamanho da sigla: com 0.74rem os 3px antigos deixavam a
+     bolinha colada na letra. */
+  gap: 4px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--cor-texto-suave);
+}
+.dashboard__grupo-bola {
+  width: 9px;
+  height: 9px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--grupo-cor, #94a3b8);
+}
+/* Uma cor por departamento. Escolhidas para serem distinguíveis entre si
+   e legíveis sobre fundo branco. */
+.dashboard__grupo--triagem { --grupo-cor: #7c3aed; }
+.dashboard__grupo--n1 { --grupo-cor: #0891b2; }
+.dashboard__grupo--n2 { --grupo-cor: #2563eb; }
+.dashboard__grupo--n3 { --grupo-cor: #16a34a; }
+.dashboard__grupo--manutencao { --grupo-cor: #ea580c; }
+.dashboard__grupo--externo { --grupo-cor: #db2777; }
+.dashboard__grupo--estoque { --grupo-cor: #ca8a04; }
+/* Departamentos de fora do Dpto Suporte Técnico (Tarefa 88): Infraestrutura,
+   Sistemas e Suporte SMED. Cores novas, escolhidas nas faixas de matiz que
+   sobraram (teal, fúcsia e vermelho). */
+.dashboard__grupo--infraestrutura { --grupo-cor: #0d9488; }
+.dashboard__grupo--sistemas { --grupo-cor: #c026d3; }
+.dashboard__grupo--smed { --grupo-cor: #b91c1c; }
+/* Campo somente-leitura (usuário/CPF) e campos travados durante o carregamento. */
+.entrada[readonly],
+.entrada:disabled {
+  background: #f4f6fa;
+  color: var(--cor-texto-suave);
+  cursor: not-allowed;
+}

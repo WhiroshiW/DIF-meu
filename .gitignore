@@ -1,0 +1,59 @@
+# ============================================================================
+# DINF — Suporte Subterrâneo
+# ============================================================================
+
+# Dependências e build
+node_modules/
+.next/
+out/
+dist/
+build/
+*.tsbuildinfo
+
+# Banco local e SEGREDOS (data/ inteiro é ignorado: o servidor recria a pasta
+# no 1º start, e é onde vivem o dinf.db e o .segredo_sessao — este último é a
+# chave que assina o cookie de sessão e NÃO pode ir para o repositório).
+data/
+
+# Variáveis de ambiente (.env.local traz os tokens da API do GLPI).
+# O .env.example, se existir um dia, é tracked: por isso a exceção abaixo.
+.env*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+yarn-error.log*
+
+# Documentação interna de desenvolvimento (não entra no repositório).
+# TASK_LOG.md, CONTEXTO_ATUAL.md, ARCHITECTURE.md, .clinerules/ e .clineignore/
+# registram o histórico de trabalho do agente de desenvolvimento — e o histórico
+# contém dados pessoais (CPFs de servidores) que não devem ser publicados.
+TASK_LOG.md
+CONTEXTO_ATUAL.md
+ARCHITECTURE.md
+.clinerules/
+.clineignore
+
+# Arquivos temporários do agente
+.cline/
+dev3010.log
+ARQUIVOS_TEMPORARIOS.txt
+APAGAR_ARQUIVOS_TEMPORARIOS.bat
+
+# Notas soltas de teste do tokenizador (T87) — na raiz, sem extensão
+/N1
+/N2
+/N3
+
+# Script de cronômetro de uma tarefa antiga (T57), não é parte do sistema
+/perf_tecnicos.cjs
+
+# next-env.d.ts é gerado pelo Next e muda sozinho
+next-env.d.ts
+
+# Sistema
+Thumbs.db
+.DS_Store
+.vscode/
+.idea/

@@ -1,0 +1,26 @@
+{
+  "name": "dinf",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "conferir-rotas": "node scripts/conferir-rotas-protegidas.js",
+    "indice": "node scripts/indice-glpi.js",
+    "prebuild": "node scripts/conferir-rotas-protegidas.js",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.0.0",
+    "next": "^15.5.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.11",
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.7.0"
+  }
+}
